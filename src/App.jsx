@@ -3,6 +3,7 @@ import building from "./assets/building.png";
 import plane from "./assets/plane.png";
 import boom from "./assets/boom.png";
 import { useEffect, useState } from "react";
+import Video from "./components/Video";
 
 const App = () => {
   const [score, setScore] = useState(0);
@@ -10,6 +11,9 @@ const App = () => {
   const [buildingPos, setBuildingPos] = useState(0);
   const [isOver, setIsOver] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
+  const [isVideoOn, setIsVideoOn] = useState(false);
+
+  const [fist, setFist] = useState(true);
 
   // animate plane
   useEffect(() => {
@@ -68,6 +72,15 @@ const App = () => {
   }
 
   useEffect(() => {
+    if (!fist && isStarted && !isOver) {
+      setPlanePosFromTop((prevPos) => {
+        const newPos = prevPos - 40;
+        return newPos > 0 ? newPos : 0;
+      })
+    }
+  }, [fist, isStarted, isOver]);
+
+  useEffect(() => {
     if (isStarted && !isOver) {
       window.addEventListener("keydown", handleSpacePress);
     }
@@ -79,73 +92,89 @@ const App = () => {
 
   useEffect(() => {
     if (isStarted && buildingPos == 500) {
-      setScore((prevScore) =>  prevScore + 1);
+      setScore((prevScore) => prevScore + 1);
     }
   }, [buildingPos, isStarted])
 
   return (
-    <div className="min-h-screen flex flex-col items-center">
-      <p className="text-base mb-2 mt-6">
-        Press <span className="font-bold">Space</span> to control the game.
-      </p>
-      <div
-        className="object-contain relative border-2 border-cyan-600 rounded-sm shadow-md mt-6"
-        style={{
-          backgroundImage: `url(${cityImg})`,
-          backgroundRepeat: "no-repeat",
-          height: "400px",
-          width: "600px",
-          backgroundSize: "cover"
-        }}
-      >
-        <div className="absolute inset-0 bg-black opacity-40"></div>
-        {
-          isOver && (
-            <div className="absolute h-full w-full flex flex-col items-center justify-center z-50"
-              style={{
-                backgroundImage: `url(${boom})`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "contain",
-                left: "35px"
-              }}
-            >
-              <h1 className="text-4xl font-bold">9-1-1 It's an emergency!!</h1>
-              <p className="text-lg text-teal-500 font-semibold">Your Score: {score}</p>
-            </div>
-          )
-        }
-        <h2 className="left-3 top-3 absolute text-cyan-800 text-xl z-40 font-semibold bg-blue-200 p-1 rounded-lg">Score: {score}</h2>
-        <img src={plane} alt="plane" className="z-10 absolute h-10 w-20 left-20 transition-transform duration-150 ease-out" style={{
-          transform: `translateY(${planePosFromTop}px)`
-        }} />
-        <div>
-          <img src={building} alt="building" className="w-24 h-40 absolute bottom-0" style={{
-            right: `${buildingPos}px`
+    <div className="flex min-h-screen justify-evenly">
+      {
+        isVideoOn && (
+          <div className="flex min-h-screen flex-col">
+            <Video isVideoOn={isVideoOn} setIsVideoOn={setIsVideoOn} setFist={setFist} />
+          </div>
+        )
+      }
+      <div className="min-h-screen flex flex-col items-center">
+        <p className="text-base mb-2 mt-6">
+          Press <span className="font-bold">Space</span> to control the game.
+        </p>
+        <div
+          className="object-contain relative border-2 border-cyan-600 rounded-sm shadow-md mt-6"
+          style={{
+            backgroundImage: `url(${cityImg})`,
+            backgroundRepeat: "no-repeat",
+            height: "400px",
+            width: "600px",
+            backgroundSize: "cover"
+          }}
+        >
+          <div className="absolute inset-0 bg-black opacity-40"></div>
+          {
+            isOver && (
+              <div className="absolute h-full w-full flex flex-col items-center justify-center z-50"
+                style={{
+                  backgroundImage: `url(${boom})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "contain",
+                  left: "35px"
+                }}
+              >
+                <h1 className="text-4xl font-bold">9-1-1 It's an emergency!!</h1>
+                <p className="text-lg text-teal-500 font-semibold">Your Score: {score}</p>
+              </div>
+            )
+          }
+          <h2 className="left-3 top-3 absolute text-cyan-800 text-xl z-40 font-semibold bg-blue-200 p-1 rounded-lg">Score: {score}</h2>
+          <img src={plane} alt="plane" className="z-10 absolute h-10 w-20 left-20 transition-transform duration-150 ease-out" style={{
+            transform: `translateY(${planePosFromTop}px)`
           }} />
-          <img src={building} alt="building" className="w-24 h-40 absolute transform -scale-y-100" style={{
-            right: `${buildingPos}px`
-          }} />
+          <div>
+            <img src={building} alt="building" className="w-24 h-40 absolute bottom-0" style={{
+              right: `${buildingPos}px`
+            }} />
+            <img src={building} alt="building" className="w-24 h-40 absolute transform -scale-y-100" style={{
+              right: `${buildingPos}px`
+            }} />
+          </div>
         </div>
-      </div>
-      <div className="flex gap-6 mt-4">
-        {
-          !isStarted && !isOver && (
-            <button className="px-3 py-2 text-teal-400 outline-teal-400 hover:bg-teal-400 hover:text-white rounded-lg shadow-lg outline" onClick={() => setIsStarted(true)}>
-              Start Game
-            </button>
-          )
-        }
-        {
-          isOver && (
-            <button className="px-3 py-2 text-teal-400 outline-teal-400 hover:bg-teal-400 hover:text-white rounded-lg shadow-lg outline" onClick={() => {
-              setBuildingPos(0);
-              setPlanePosFromTop(175);
-              setIsOver(false);
-              setIsStarted(false);
-              setScore(0);
-            }}>Reset</button>
-          )
-        }
+        <div className="flex gap-6 mt-4">
+          {
+            !isVideoOn && (
+              <button onClick={() => setIsVideoOn(true)} className="px-3 py-2 outline-rose-500 hover:bg-rose-600 text-rose-500 hover:text-white rounded-lg shadow-md outline">
+                Gesture Control 🖐
+              </button>
+            )
+          }
+          {
+            !isStarted && !isOver && (
+              <button className="px-3 py-2 text-teal-400 outline-teal-400 hover:bg-teal-400 hover:text-white rounded-lg shadow-lg outline" onClick={() => setIsStarted(true)}>
+                Start Game
+              </button>
+            )
+          }
+          {
+            isOver && (
+              <button className="px-3 py-2 text-teal-400 outline-teal-400 hover:bg-teal-400 hover:text-white rounded-lg shadow-lg outline" onClick={() => {
+                setBuildingPos(0);
+                setPlanePosFromTop(175);
+                setIsOver(false);
+                setIsStarted(false);
+                setScore(0);
+              }}>Reset</button>
+            )
+          }
+        </div>
       </div>
     </div>
   )
