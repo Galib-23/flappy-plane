@@ -16,39 +16,6 @@ Players control the plane using hand gestures detected via their webcam.
 <br>
 
 
-
-## 🚀 Getting Started
-
-1. Clone your fork of the repo:
-   ```bash
-   git clone https://github.com/<your-username>/flappy-plane.git
-   cd flappy-plane
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Run the project:
-   ```bash
-   npm run dev
-   ```
-
-4. Open in your browser (usually `http://localhost:5173`).
-
-## 🧠 How ml5 is used
-
-The game uses **ml5.js** for gesture recognition:
-
-```html
-<script src="https://unpkg.com/ml5@1.0.1/dist/ml5.min.js"></script>
-```
-
-- Detects hand gestures from webcam feed
-- Converts gestures into plane movements (e.g., up/down)
-- Enables intuitive, touchless gameplay
-
 ## 📝 Contribution Guidelines
 
 We maintain a **2-branch workflow**:
@@ -104,6 +71,20 @@ We maintain a **2-branch workflow**:
 10. Periodically, `dev` is merged into `main` for stable releases.
 
 ⚠️ **Never push directly to `main`. All work should go through `dev`.**
+
+<br>
+
+## 🧠 How ml5 is used
+
+The game uses **ml5.js** for gesture recognition:
+
+```html
+<script src="https://unpkg.com/ml5@1.0.1/dist/ml5.min.js"></script>
+```
+
+- Detects hand gestures from webcam feed
+- Converts gestures into plane movements (e.g., up/down)
+- Enables intuitive, touchless gameplay
 
 ## 📄 License
 
