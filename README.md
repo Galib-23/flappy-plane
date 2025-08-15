@@ -9,16 +9,16 @@ Players control the plane using hand gestures detected via their webcam.
 
 ## 🎮 Features
 
-- Gesture-based controls using ml5.js (`<script src="https://unpkg.com/ml5@1.0.1/dist/ml5.min.js"></script>`)  
-- Smooth gameplay built with React + Tailwind  
-- Open source and ready for contributions  
+- Gesture-based controls using ml5.js (`<script src="https://unpkg.com/ml5@1.0.1/dist/ml5.min.js"></script>`)
+- Smooth gameplay built with React + Tailwind
+- Open source and ready for contributions
 
 <br>
-
 
 ## 📝 Contribution Guidelines
 
 We maintain a **2-branch workflow**:
+
 - `main` → stable release branch
 - `dev` → all contributions happen here first
 
@@ -27,48 +27,48 @@ We maintain a **2-branch workflow**:
 1. **Fork** the repository.
 
 2. **Clone your fork** locally:
+
    ```bash
    git clone https://github.com/Galib-23/flappy-plane.git
    cd flappy-plane
    ```
 
 3. **Set upstream** to keep your fork updated:
+
    ```bash
    git remote add upstream https://github.com/Galib-23/flappy-plane.git
    ```
 
-4. **Create a branch** from dev:
+4. **Work directly on dev branch**:
+
    ```bash
    git fetch upstream
    git checkout dev
    git pull upstream dev
-   git checkout -b my-feature
+
    ```
 
 5. **Make changes** → commit:
+
    ```bash
    git add .
    git commit -m "feat: describe your change"
    ```
 
-6. **Keep branch updated** before pushing:
+6. **Push** to your fork:
+
    ```bash
-   git fetch upstream
-   git pull upstream dev
+   git push origin dev
    ```
 
-7. **Push** to your fork:
-   ```bash
-   git push origin my-feature
-   ```
+7. **Open a Pull Request** on GitHub:
 
-8. **Open a Pull Request** on GitHub:
    - Base: `dev` (original repo)
-   - Compare: `my-feature` (your fork)
+   - Compare: `dev` (your fork)
 
-9. **Wait for review** → Once approved, it will be merged into `dev`.
+8. **Wait for review** → Once approved, it will be merged into `dev`.
 
-10. Periodically, `dev` is merged into `main` for stable releases.
+9. Periodically, `dev` is merged into `main` for stable releases.
 
 ⚠️ **Never push directly to `main`. All work should go through `dev`.**
 
